@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+  aoa-core:
+    image: thinkbiganalytics/aoa-demo:2.5.0
+    container_name: aoa-core
+    hostname: aoa-core
+    restart: always
+    environment:
+      MODEL_ARTEFACT_REPO: s3
+      S3_HOST: host.docker.internal:9000
+      S3_BUCKET: aoa
+      S3_ACCESS_KEY: minioadmin
+      S3_SECRET_KEY: minioadmin
+      GIT_CLONE: "true"
+      GIT_PULL: "true"
+      GIT_USERNAME: gituser
+      GIT_PASSWORD: gitpassword
+    env_file:
+      - ./aoa-core.env
+    ports:
+      - "8080:8080"
+      - "61613:61613"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/aoa:/tmp/aoa
+    privileged: true
+
+  aoa-ui:
+    image: thinkbiganalytics/aoa-ui-demo:2.5.0
+    container_name: aoa-ui
+    hostname: aoa-ui
+    restart: always
+    ports:
+      - "4200:4200"
+      - "4201:4201"
+    environment:
+        START_LOCAL_LOGS_SERVER: "true" 
+        LOG_MANAGEMENT_URL: "http://localhost:4201/$${JOB_ID}.log"
+        BASE_URL: "http://localhost:8080/api"
+        WEBSOCKET_URL: "ws://localhost:8080/tb-ml-websocket/websocket"
+    depends_on:
+      - aoa-core
+
+  gogs:
+    image: thinkbiganalytics/aoa-demomodels:2.5.0
+    container_name: demo-git
+    hostname: demo-git
+    ports:
+      - "3000:3000"
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    entrypoint: sh
+    command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
+
+  jupyter:
+    image: thinkbiganalytics/aoa-jupyter:2.5.0
+    container_name: jupyter
+    ports:
+      - "8889:8888"
+    command: start-notebook.sh --NotebookApp.password='sha1:2513460e10c7:cbda35fc8e61514cebfe912ffb3b4330af5a49fa'
