@@ -1,10 +1,13 @@
 ## Overview
 
-Download the [docker-compose.yaml](./docker-compose.yaml) either manually or via
+Download the [docker-compose.yaml](./docker-compose.yaml) and [env config](./aoa-core.env) either manually or via
 
 ```
-https://github.com/jupyterlab/jupyterlab/blob/master/binder/requirements.txt
+wget https://github.com/ThinkBigAnalytics/AoaDockerComposeDemos/blob/master/docker-compose.yaml
+wget https://github.com/ThinkBigAnalytics/AoaDockerComposeDemos/blob/master/aoa-core.env
 ```
+
+If you want to access Transcend to run the example MLE models etc, you will need to update the [env config](./aoa-core.env) with your Teradata username (your quicklook id) & password.
 
 Then execute 
 
