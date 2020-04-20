@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   aoa-core:
-    image: thinkbiganalytics/aoa-demo:2.5.0
+    image: thinkbiganalytics/aoa-demo:2.5.1
     container_name: aoa-core
     hostname: aoa-core
     restart: always
@@ -16,6 +16,7 @@ services:
       GIT_PULL: "true"
       GIT_USERNAME: gituser
       GIT_PASSWORD: gitpassword
+      JAVA_OPTS: "-Dspring.flyway.locations=filesystem:/app/aoa/db/migration/h2/,filesystem:/app/aoa/db/demo-data/h2/"
     env_file:
       - ./aoa-core.env
     ports:
@@ -43,7 +44,7 @@ services:
       - aoa-core
 
   gogs:
-    image: thinkbiganalytics/aoa-demomodels:2.5.0
+    image: thinkbiganalytics/aoa-demomodels:2.5.1
     container_name: demo-git
     hostname: demo-git
     ports:
@@ -61,8 +62,8 @@ services:
     command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
 
   jupyter:
-    image: thinkbiganalytics/aoa-jupyter:2.5.0
+    image: thinkbiganalytics/aoa-jupyter:2.5.1
     container_name: jupyter
     ports:
-      - "8889:8888"
+      - "8888:8888"
     command: start-notebook.sh --NotebookApp.password='sha1:2513460e10c7:cbda35fc8e61514cebfe912ffb3b4330af5a49fa'

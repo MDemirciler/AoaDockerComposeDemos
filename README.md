@@ -37,6 +37,7 @@ The following credentials are good to know
 | Service   |      Username      |    Password      |
 |----------|:-------------:|-------------:|
 | AOA |  admin | admin |
+| Git |  gituser | gitpassword |
 | Jupyter |   | aoa |
 | Business Central | admin | admin 
 | Minio | minioadmin | minioadmin | 
