@@ -8,6 +8,12 @@ git clone https://github.com/ThinkBigAnalytics/AoaDockerComposeDemos
 
 If you want to access Transcend to run the example MLE models etc, you will need to update the [env config](./aoa-core.env) with your Teradata username (your quicklook id) & password.
 
+Ensure you have access to the docker repositories (request it in the AnalyticOps Technical Support team), and have logged into docker
+
+```
+docker login
+```
+
 Then execute 
 
 ```
