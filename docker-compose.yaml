@@ -24,7 +24,7 @@ services:
       - "61613:61613"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /tmp/aoa:/tmp/aoa
+      - /tmp/aoa-logs:/tmp/aoa-logs
     privileged: true
 
   aoa-ui:
@@ -40,6 +40,8 @@ services:
         LOG_MANAGEMENT_URL: "http://localhost:4201/$${JOB_ID}.log"
         BASE_URL: "http://localhost:8080/api"
         WEBSOCKET_URL: "ws://localhost:8080/tb-ml-websocket/websocket"
+    volumes:
+      - /tmp/aoa-logs:/aoa-logs
     depends_on:
       - aoa-core
 
