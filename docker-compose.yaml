@@ -28,7 +28,7 @@ services:
     privileged: true
 
   aoa-ui:
-    image: thinkbiganalytics/aoa-ui-demo:2.5.0
+    image: thinkbiganalytics/aoa-ui-demo:2.5.1
     container_name: aoa-ui
     hostname: aoa-ui
     restart: always
@@ -46,7 +46,7 @@ services:
       - aoa-core
 
   gogs:
-    image: thinkbiganalytics/aoa-demomodels:2.5.1
+    image: thinkbiganalytics/aoa-demomodels:2.5.2
     container_name: demo-git
     hostname: demo-git
     ports:
@@ -64,7 +64,7 @@ services:
     command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
 
   jupyter:
-    image: thinkbiganalytics/aoa-jupyter:2.5.1
+    image: thinkbiganalytics/aoa-jupyter:2.5.2
     container_name: jupyter
     ports:
       - "8888:8888"
