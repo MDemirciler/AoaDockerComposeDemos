@@ -14,11 +14,17 @@ Ensure you have access to the docker repositories (request it in the AnalyticOps
 docker login
 ```
 
-Then execute 
+We have two docker-compose files which allow you to run a lightweight (default) and complete AnalyticOps stack. We recommend getting started with the lightweight version as its faster to start and play with. To start the lightweight stack, run
 
 ```
 docker-compose up
 ```
+
+If you want to execute the complete stack, run 
+```
+docker-compose -f aoa-complete.yaml up
+```
+
 
 Then go to [JupyterLab](http://localhost:8888) and enter the password `aoa`. Open the Getting Started notebook and it will contain links to the other services and steps to get going. 
 
