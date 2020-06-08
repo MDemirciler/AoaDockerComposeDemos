@@ -1,9 +1,15 @@
 ## Overview
 
-Download the [docker-compose.yaml](./docker-compose.yaml) and [env config](./aoa-core.env) either manually or via
+Download the repository either manually (Clone or Download -> Download as Zip) or via git clone
 
 ```
 git clone https://github.com/ThinkBigAnalytics/AoaDockerComposeDemos
+```
+
+Navigate to the directory where you clone or downloaded this (making sure to unzip if necessary). **All commands that are executed below assume you're current working directory is in this repository**
+
+```
+cd <my-clone-or-download-path>/AoaDockerComposeDemos
 ```
 
 If you want to access Transcend to run the example MLE models etc, you will need to update the [env config](./aoa-core.env) with your Teradata username (your quicklook id) & password.
