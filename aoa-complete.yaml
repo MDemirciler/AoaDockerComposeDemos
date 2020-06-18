@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   aoa-core:
-    image: thinkbiganalytics/aoa-demo:2.6.0.rc3
+    image: thinkbiganalytics/aoa-demo:2.6.0.rc4
     container_name: aoa-core
     hostname: aoa-core
     restart: always
@@ -34,7 +34,7 @@ services:
     privileged: true
 
   aoa-ui:
-    image: thinkbiganalytics/aoa-ui-demo:2.6.0.rc1
+    image: thinkbiganalytics/aoa-ui-demo:2.6.0.rc2
     container_name: aoa-ui
     hostname: aoa-ui
     restart: always
@@ -46,6 +46,7 @@ services:
         LOG_MANAGEMENT_URL: "http://localhost:4201/$${JOB_ID}.log"
         BASE_URL: "http://localhost:8080/api"
         WEBSOCKET_URL: "ws://localhost:8080/tb-ml-websocket/websocket"
+        SHOW_INFERENCE_WORKFLOW: "false"
     volumes:
       - /tmp/aoa-logs:/aoa-logs
     depends_on:
