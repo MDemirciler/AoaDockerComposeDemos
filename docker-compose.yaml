@@ -1,6 +1,17 @@
 version: "3.7"
 
 services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    hostname: minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    entrypoint: sh
+    command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
 
   aoa-core:
     image: thinkbiganalytics/aoa-demo:2.6.0
@@ -10,6 +21,7 @@ services:
     environment:
       S3_EMBEDDED: "false"
       MODEL_ARTEFACT_REPO: s3
+# if running on linux enter host ip address instead of host.docker.internal
       S3_HOST: http://host.docker.internal:9000
       S3_BUCKET: aoa
       S3_ACCESS_KEY: minioadmin
@@ -42,6 +54,7 @@ services:
     environment:
         START_LOCAL_LOGS_SERVER: "true" 
         LOG_MANAGEMENT_URL: "http://localhost:4201/$${JOB_ID}.log"
+# if not running on local laptop change to the ip-address of the server
         BASE_URL: "http://localhost:8080/api"
         WEBSOCKET_URL: "ws://localhost:8080/tb-ml-websocket/websocket"
         SHOW_INFERENCE_WORKFLOW: "false"
@@ -56,17 +69,6 @@ services:
     hostname: demo-git
     ports:
       - "3000:3000"
-
-  minio:
-    image: minio/minio:latest
-    container_name: minio
-    ports:
-      - "9000:9000"
-    environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
-    entrypoint: sh
-    command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
 
   jupyter:
     image: thinkbiganalytics/aoa-jupyter:2.6.0
@@ -85,9 +87,9 @@ services:
     volumes:
       - ./websites:/usr/share/nginx/html
 
-  airlfow:
+  airflow:
     image: thinkbiganalytics/aoa-airflow:2.6.0
-    container_name: airlfow
+    container_name: airflow
     ports: 
       - "9090:8080"
     environment:

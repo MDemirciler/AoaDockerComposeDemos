@@ -89,9 +89,9 @@ services:
     volumes:
       - ./websites:/usr/share/nginx/html
 
-  airlfow:
+  airflow:
     image: thinkbiganalytics/aoa-airflow:2.6.0
-    container_name: airlfow
+    container_name: airflow
     ports: 
       - "9090:8080"
     environment:

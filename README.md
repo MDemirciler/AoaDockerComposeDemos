@@ -20,7 +20,7 @@ Ensure you have access to the docker repositories (request it in the AnalyticOps
 docker login
 ```
 
-We have two docker-compose files which allow you to run a lightweight (default) and complete AnalyticOps stack. We recommend getting started with the lightweight version as its faster to start and play with. To start the lightweight stack, run
+We have two `docker-compose` files which allow you to run a lightweight (default) and complete AnalyticOps stack. We recommend getting started with the lightweight version as its faster to start and play with. If you don't run on local laptop - update addresses from `host.docker.internal` or `localhost` to ip address of the server (see comments inside the docker-compose). To start the lightweight stack, run
 
 ```
 docker-compose up
@@ -47,15 +47,15 @@ Sometimes you might have an issue with docker compose not stopping or cleaning u
 docker-compose down -v --remove-orphans
 ```
 
-## Credentials
-
+## Credentials and links
 The following credentials are good to know 
+You might want to change `localhost` to ip address of the server if not running on laptop. 
 
  
-| Service   |      Username      |    Password      |
-|----------|:-------------:|-------------:|
-| AOA |  admin | admin |
-| Git |  gituser | gitpassword |
-| Jupyter |   | aoa |
-| Business Central | admin | admin 
-| Minio | minioadmin | minioadmin | 
+| Service   |      Link      |      Username      |    Password      |
+|----------|:-------------:|:-------------:|-------------:|
+| AOA | http://localhost:4200| admin | admin |
+| Git | http://localhost:3000| gituser | gitpassword |
+| Jupyter | http://localhost:8888|   | aoa |
+| Business Central |http://localhost:8081  |admin | admin |
+| Minio |http://localhost:9000 | minioadmin | minioadmin | 
