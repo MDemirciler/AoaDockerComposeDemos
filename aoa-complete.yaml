@@ -2,8 +2,26 @@ version: "3.7"
 
 services:
 
+  gogs:
+    image: thinkbiganalytics/aoa-demomodels:2.6.0
+    container_name: demo-git
+    hostname: demo-git
+    ports:
+      - "3000:3000"
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    entrypoint: sh
+    command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
+
   aoa-core:
-    image: thinkbiganalytics/aoa-demo:2.6.0
+    image: thinkbiganalytics/aoa-demo:2.6.1
     container_name: aoa-core
     hostname: aoa-core
     restart: always
@@ -34,43 +52,27 @@ services:
       - /tmp/aoa-logs:/tmp/aoa-logs
       - /tmp/scheduler/dags/:/app/aoa/dags
     privileged: true
+    depends_on:
+      - gogs
+      - minio
 
   aoa-ui:
-    image: thinkbiganalytics/aoa-ui-demo:2.6.0
+    image: thinkbiganalytics/aoa-ui-demo:2.6.1
     container_name: aoa-ui
     hostname: aoa-ui
     restart: always
     ports:
-      - "4200:4200"
-      - "4201:4201"
+      - "4200:80"
     environment:
         START_LOCAL_LOGS_SERVER: "true" 
-        LOG_MANAGEMENT_URL: "http://localhost:4201/$${JOB_ID}.log"
+        LOG_MANAGEMENT_URL: "http://localhost:4200/logs/$${JOB_ID}.log"
         BASE_URL: "http://localhost:8080/api"
         WEBSOCKET_URL: "ws://localhost:8080/tb-ml-websocket/websocket"
         SHOW_INFERENCE_WORKFLOW: "false"
     volumes:
-      - /tmp/aoa-logs:/aoa-logs
+      - /tmp/aoa-logs:/aoa-logs/logs
     depends_on:
       - aoa-core
-
-  gogs:
-    image: thinkbiganalytics/aoa-demomodels:2.6.0
-    container_name: demo-git
-    hostname: demo-git
-    ports:
-      - "3000:3000"
-
-  minio:
-    image: minio/minio:latest
-    container_name: minio
-    ports:
-      - "9000:9000"
-    environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
-    entrypoint: sh
-    command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
 
   jupyter:
     image: thinkbiganalytics/aoa-jupyter:2.6.0
@@ -89,9 +91,9 @@ services:
     volumes:
       - ./websites:/usr/share/nginx/html
 
-  airlfow:
+  airflow:
     image: thinkbiganalytics/aoa-airflow:2.6.0
-    container_name: airlfow
+    container_name: airflow
     ports: 
       - "9090:8080"
     environment:

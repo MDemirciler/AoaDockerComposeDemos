@@ -16,7 +16,7 @@ card_limit=parseInt($("#card_limit").val()) || 5000.0;
 
 
 $.ajax({
-  url:"http://vantage-gtm-01.labs.teradata.com:5000/predict",
+  url:"http://localhost:5000/predict",
   type:"POST",
   data: JSON.stringify({
     "data": {
