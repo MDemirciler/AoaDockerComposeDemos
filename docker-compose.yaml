@@ -53,7 +53,7 @@ services:
       - minio
 
   aoa-ui:
-    image: thinkbiganalytics/aoa-ui-demo:2.6.1
+    image: thinkbiganalytics/aoa-ui-demo:2.6.0
     container_name: aoa-ui
     hostname: aoa-ui
     restart: always
