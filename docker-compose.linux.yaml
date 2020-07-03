@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  aoa-core:
+    environment:
+      # on linux host.docker.internal doesn't exist so you must use either host mode networking or
+      # the ip address of the host here.
+      S3_HOST: http://add_your_host_ip:9000

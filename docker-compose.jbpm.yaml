@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  aoa-core:
+    environment:
+      AUTOMATION_ENGINE_CLIENT: jbpm
+      AUTOMATION_ENGINE_URL: http://aoa-jbpm-automation-engine:8082/api/automationWorkflows/trigger
+      AUTOMATION_ENGINE_USERNAME: admin
+      AUTOMATION_ENGINE_PASSWORD: admin
+
+  business-central:
+    image: thinkbiganalytics/aoa-jbpm-workbench:2.5.0
+    container_name: business-central
+    hostname: business-central
+    ports:
+      - "8081:8080"
+      - "8001:8001"
+
+  aoa-jbpm-automation-engine:
+    image: thinkbiganalytics/aoa-jbpm-demo:2.4.0
+    container_name: aoa-jbpm-automation-engine
+    hostname: aoa-jbpm-automation-engine
+    ports:
+      - "8082:8082"
+    environment:
+      AOA_CORE_API_UR: http://localhost:8080/api
+      KIESERVER_API: http://aoa-jbpm-automation-engine:8082/kie-server/rest/server
+      BUSINESS_CENTRAL_CONTROLLER: http://business-central:8080/business-central/rest/controller
+    depends_on:
+      - business-central
