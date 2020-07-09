@@ -49,14 +49,14 @@ docker-compose down
 
 The following credentials are included in the JupyterLab `Getting Started` notebook but we also include here for reference.  
 
-| Service   |      Username      |    Password      |
-|----------|:-------------:|-------------:|
-| AOA |  admin | admin |
-| Git |  gituser | gitpassword |
-| Jupyter |   | aoa |
-| Business Central | admin | admin 
-| Minio | minioadmin | minioadmin | 
-| Airflow |  |  | 
+| Service          |   Default Port                                 |   Username    |    Password  |
+|----------        |:-------------:                                 |:-------------:|-------------:|
+| AOA              | [4200](http://localhost:4200)                  |  admin        | admin        |
+| Git              | [3000](http://localhost:3000)                  |  gituser      | gitpassword  |
+| Jupyter          | [8888](http://localhost:8888)                  |               | aoa          |
+| Business Central | [8081](http://localhost:8081/business-central) | admin         | admin        | 
+| Minio            | [9000](http://localhost:9000)                  | minioadmin    | minioadmin   | 
+| Airflow          | [9090](http://localhost:9090/admin/)           |               |              |
 
 
 ## Running with JBPM
@@ -64,7 +64,7 @@ The following credentials are included in the JupyterLab `Getting Started` noteb
 If you want to execute the extended stack which includes jBPM Business Central and all the automation pieces connected, you can run the following. Note we don't recommend you do that regularly as the stack is very large and consumes a lot of resources. 
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.jbpm.yml up
+docker-compose -f docker-compose.yaml -f docker-compose.jbpm.yaml up
 ```
 
 ## Extending / Customizing
@@ -74,7 +74,7 @@ Docker compose supports a number of ways to extend and customise compose files w
 As the official docker compose documentation providers a complete description, we will only show one simple change here. Imagine we have deployed this on a Linux system and we need to update some of the values as we don't need to use the host name dns we use in Windows and OSX. See the `docker-compose.linux.yaml` file to see how this is done. To use this you would run 
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.linux.yml up
+docker-compose -f docker-compose.yaml -f docker-compose.linux.yaml up
 ```
 
 ## Troubleshooting
