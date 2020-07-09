@@ -21,7 +21,7 @@ services:
     command: -c 'mkdir -p /data/aoa && /usr/bin/minio server /data'
 
   aoa-core:
-    image: thinkbiganalytics/aoa-demo:2.6.2
+    image: thinkbiganalytics/aoa-demo:2.7.0.rc1
     container_name: aoa-core
     hostname: aoa-core
     restart: always
